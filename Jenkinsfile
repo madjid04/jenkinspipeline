@@ -47,7 +47,7 @@ pipeline {
 		
 		stage('Building and sending results to Sonar ...') {
             steps {
-                withSonarQubeEnv(installationName: 'SonarQube', credentialsId: '8e624741-c8c4-4751-8cd9-fdc6c70f2810') {
+                withSonarQubeEnv(installationName: 'sonarqube', credentialsId: '8e624741-c8c4-4751-8cd9-fdc6c70f2810') {
                     sh 'mvn -B -DskipTests clean package sonar:sonar'
                 }
             }
