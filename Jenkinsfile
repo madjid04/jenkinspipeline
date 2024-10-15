@@ -44,6 +44,14 @@ pipeline {
                 }
             }
         }
+		
+		stage('Building and sending results to Sonar ...') {
+            steps {
+                withSonarQubeEnv(installationName: 'SonarInstall', credentialsId: 'sonar_token') {
+                    sh 'mvn -B -DskipTests clean package sonar:sonar'
+                }
+            }
+        }
 
     }
 }
