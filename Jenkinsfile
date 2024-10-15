@@ -5,11 +5,7 @@ pipeline {
     tools {
         maven "M3"
     }
- /**   triggers {
-   *     cron('H */8 * * *') //regular builds
-   *     pollSCM('* * * * *') //polling for changes, here once a minute
-   * }
-*/
+
     stages {
         stage('Checking out the repo') {
             steps {
