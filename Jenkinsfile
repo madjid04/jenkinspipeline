@@ -30,7 +30,21 @@ pipeline {
             steps {
                 sh "mvn -B -DskipTests clean package"
             }
-        }        
+        }
+		stage('Code coverage') {
+            steps {
+                withMaven(maven:'M3') {
+                    sh "mvn clean cobertura:cobertura install test -Dcobertura.report.format=xml"                    
+                }
+            }
+            post {
+                always {
+                    junit '**/test-reports/*.xml'
+                    step([$class: 'CoberturaPublisher', autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/coverage.xml', failUnhealthy: false, failUnstable: false, maxNumberOfBuilds: 2, onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false])
+
+                }
+            }
+        }
 
     }
 }
